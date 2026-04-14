@@ -1,1 +1,457 @@
-[error] path '/mnt/user-data/outputs/services.html' does not exist
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - EventFlow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
+            color: #e0e6ed;
+            line-height: 1.6;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 2rem;
+            background: rgba(15, 20, 25, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 20, 147, 0.1);
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff1493, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #e0e6ed;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff1493, #ffd700);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #ff1493, #ff69b4);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 20, 147, 0.4);
+        }
+
+        .page-title {
+            margin-top: 120px;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .page-title h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, #ffffff, #ff1493);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .services-detail {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .service-detail-card {
+            background: linear-gradient(135deg, rgba(255, 20, 147, 0.1), rgba(255, 215, 0, 0.05));
+            border: 1px solid rgba(255, 20, 147, 0.2);
+            border-radius: 15px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .service-detail-card:nth-child(even) {
+            direction: rtl;
+        }
+
+        .service-detail-card:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .service-detail-icon {
+            font-size: 5rem;
+            text-align: center;
+        }
+
+        .service-detail-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        .service-detail-content p {
+            color: #b0b8c4;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .features-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .features-list li {
+            padding: 0.5rem 0;
+            color: #e0e6ed;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #ff1493;
+            font-weight: bold;
+        }
+
+        .pricing-section {
+            margin-top: 6rem;
+            padding: 4rem 2rem;
+            background: rgba(255, 20, 147, 0.05);
+            border-radius: 20px;
+        }
+
+        .pricing-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #ffffff, #ff1493);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: linear-gradient(135deg, rgba(26, 31, 46, 0.9), rgba(255, 20, 147, 0.1));
+            border: 2px solid rgba(255, 20, 147, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            border-color: #ff1493;
+            box-shadow: 0 20px 50px rgba(255, 20, 147, 0.2);
+        }
+
+        .pricing-card.featured {
+            border-color: #ff1493;
+            transform: scale(1.05);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: linear-gradient(135deg, #ff1493, #ff69b4);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .pricing-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-price {
+            font-size: 2.5rem;
+            color: #ff1493;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-price span {
+            font-size: 1rem;
+            color: #b0b8c4;
+        }
+
+        .pricing-description {
+            color: #b0b8c4;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            padding: 0.5rem 0;
+            color: #e0e6ed;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 0.9rem;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .pricing-button {
+            width: 100%;
+            background: linear-gradient(135deg, #ff1493, #ff69b4);
+            color: white;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .pricing-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 20, 147, 0.4);
+        }
+
+        footer {
+            background: #0a0e13;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 20, 147, 0.1);
+            color: #b0b8c4;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .service-detail-card {
+                grid-template-columns: 1fr;
+            }
+
+            .service-detail-card:nth-child(even) {
+                direction: ltr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">EventFlow</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="cta-button">Get Started</button>
+        </nav>
+    </header>
+
+    <section class="page-title">
+        <h1>Our Services</h1>
+        <p>Comprehensive virtual event solutions tailored to your needs</p>
+    </section>
+
+    <section class="services-detail">
+        <div class="service-detail-card">
+            <div class="service-detail-icon">🎤</div>
+            <div class="service-detail-content">
+                <h2>Webinars & Workshops</h2>
+                <p>Engage your audience with interactive online seminars. Perfect for product demos, educational content, and thought leadership.</p>
+                <ul class="features-list">
+                    <li>Live streaming with HD quality</li>
+                    <li>Interactive Q&A and polls</li>
+                    <li>Breakout rooms for discussions</li>
+                    <li>Automated attendee tracking</li>
+                    <li>Post-event analytics and recordings</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="service-detail-card">
+            <div class="service-detail-icon">🎭</div>
+            <div class="service-detail-content">
+                <h2>Virtual Conferences</h2>
+                <p>Host large-scale multi-day events with multiple tracks, exhibitor booths, and comprehensive networking opportunities.</p>
+                <ul class="features-list">
+                    <li>Multi-track session management</li>
+                    <li>Virtual exhibitor booths</li>
+                    <li>Networking lounges</li>
+                    <li>Sponsor integration</li>
+                    <li>Real-time attendee engagement</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="service-detail-card">
+            <div class="service-detail-icon">🏢</div>
+            <div class="service-detail-content">
+                <h2>Corporate Events</h2>
+                <p>Strengthen your team and company culture with virtual team building, product launches, and company celebrations.</p>
+                <ul class="features-list">
+                    <li>Interactive team activities</li>
+                    <li>Live entertainment options</li>
+                    <li>Virtual awards ceremonies</li>
+                    <li>Custom branding</li>
+                    <li>Attendee engagement tools</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="service-detail-card">
+            <div class="service-detail-icon">📚</div>
+            <div class="service-detail-content">
+                <h2>Training & Education</h2>
+                <p>Deliver structured learning programs with interactive modules, assessments, and certification tracking for your organization.</p>
+                <ul class="features-list">
+                    <li>Structured curriculum management</li>
+                    <li>Assessment and quizzes</li>
+                    <li>Certification tracking</li>
+                    <li>Progress analytics</li>
+                    <li>Continuing education credits</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-section">
+        <h2 class="pricing-title">Flexible Pricing Plans</h2>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="pricing-name">Starter</div>
+                <div class="pricing-price">$499<span>/month</span></div>
+                <p class="pricing-description">Perfect for small events and webinars</p>
+                <ul class="pricing-features">
+                    <li>Up to 500 attendees</li>
+                    <li>Basic streaming</li>
+                    <li>Email support</li>
+                    <li>Standard analytics</li>
+                    <li>1 event per month</li>
+                </ul>
+                <button class="pricing-button">Get Started</button>
+            </div>
+
+            <div class="pricing-card featured">
+                <div class="pricing-badge">Most Popular</div>
+                <div class="pricing-name">Professional</div>
+                <div class="pricing-price">$1,299<span>/month</span></div>
+                <p class="pricing-description">Ideal for growing businesses</p>
+                <ul class="pricing-features">
+                    <li>Up to 5,000 attendees</li>
+                    <li>HD streaming</li>
+                    <li>Priority support</li>
+                    <li>Advanced analytics</li>
+                    <li>Unlimited events</li>
+                    <li>Breakout rooms</li>
+                </ul>
+                <button class="pricing-button">Get Started</button>
+            </div>
+
+            <div class="pricing-card">
+                <div class="pricing-name">Enterprise</div>
+                <div class="pricing-price">Custom<span>/month</span></div>
+                <p class="pricing-description">For large-scale operations</p>
+                <ul class="pricing-features">
+                    <li>Unlimited attendees</li>
+                    <li>4K streaming</li>
+                    <li>24/7 dedicated support</li>
+                    <li>Custom integrations</li>
+                    <li>White-label options</li>
+                    <li>SLA guarantee</li>
+                </ul>
+                <button class="pricing-button">Contact Sales</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 EventFlow. All rights reserved. | Privacy Policy | Terms of Service</p>
+    </footer>
+</body>
+</html>

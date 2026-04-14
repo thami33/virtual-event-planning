@@ -1,1 +1,413 @@
-[error] path '/mnt/user-data/outputs/portfolio.html' does not exist
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - EventFlow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
+            color: #e0e6ed;
+            line-height: 1.6;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 2rem;
+            background: rgba(15, 20, 25, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 20, 147, 0.1);
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff1493, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #e0e6ed;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff1493, #ffd700);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #ff1493, #ff69b4);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 20, 147, 0.4);
+        }
+
+        .page-title {
+            margin-top: 120px;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .page-title h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, #ffffff, #ff1493);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, rgba(255, 20, 147, 0.1), rgba(255, 215, 0, 0.05));
+            border: 1px solid rgba(255, 20, 147, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #ff1493;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #b0b8c4;
+        }
+
+        .case-studies {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .case-study {
+            background: linear-gradient(135deg, rgba(255, 20, 147, 0.1), rgba(255, 215, 0, 0.05));
+            border: 1px solid rgba(255, 20, 147, 0.2);
+            border-radius: 15px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .case-study:nth-child(even) {
+            direction: rtl;
+        }
+
+        .case-study:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .case-study-image {
+            background: linear-gradient(135deg, rgba(255, 20, 147, 0.2), rgba(255, 215, 0, 0.1));
+            border-radius: 10px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .case-study-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        .case-study-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meta-label {
+            color: #b0b8c4;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .meta-value {
+            color: #ff1493;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .case-study-description {
+            color: #b0b8c4;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .results-list {
+            list-style: none;
+        }
+
+        .results-list li {
+            padding: 0.5rem 0;
+            color: #e0e6ed;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .results-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #0a0e13;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 20, 147, 0.1);
+            color: #b0b8c4;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .case-study {
+                grid-template-columns: 1fr;
+            }
+
+            .case-study:nth-child(even) {
+                direction: ltr;
+            }
+
+            .case-study-image {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">EventFlow</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="cta-button">Get Started</button>
+        </nav>
+    </header>
+
+    <section class="page-title">
+        <h1>Our Portfolio</h1>
+        <p>Showcasing our most successful virtual events</p>
+    </section>
+
+    <section class="portfolio-stats">
+        <div class="stat-box">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Events Delivered</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number">2.5M+</div>
+            <div class="stat-label">Total Attendees</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number">98%</div>
+            <div class="stat-label">Satisfaction Rate</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number">150+</div>
+            <div class="stat-label">Countries Reached</div>
+        </div>
+    </section>
+
+    <section class="case-studies">
+        <div class="case-study">
+            <div class="case-study-image">🌍</div>
+            <div class="case-study-content">
+                <h3>Global Tech Summit 2024</h3>
+                <div class="case-study-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Attendees</span>
+                        <span class="meta-value">12,500+</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Duration</span>
+                        <span class="meta-value">3 Days</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Countries</span>
+                        <span class="meta-value">85+</span>
+                    </div>
+                </div>
+                <p class="case-study-description">A massive three-day virtual conference featuring 150+ speakers, 40 parallel sessions, and interactive networking lounges.</p>
+                <ul class="results-list">
+                    <li>Zero technical downtime across 72 hours</li>
+                    <li>95% attendee engagement rate</li>
+                    <li>2,000+ networking connections made</li>
+                    <li>50+ sponsorship activations</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="case-study">
+            <div class="case-study-image">🏢</div>
+            <div class="case-study-content">
+                <h3>Fortune 500 Company Onboarding</h3>
+                <div class="case-study-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Participants</span>
+                        <span class="meta-value">5,000+</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Duration</span>
+                        <span class="meta-value">2 Weeks</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Modules</span>
+                        <span class="meta-value">45</span>
+                    </div>
+                </div>
+                <p class="case-study-description">Comprehensive employee onboarding program for new hires across 15 offices worldwide, with interactive training modules and assessments.</p>
+                <ul class="results-list">
+                    <li>100% completion rate</li>
+                    <li>Average assessment score 92%</li>
+                    <li>Reduced onboarding time by 40%</li>
+                    <li>Increased employee satisfaction by 35%</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="case-study">
+            <div class="case-study-image">🎓</div>
+            <div class="case-study-content">
+                <h3>Professional Certification Program</h3>
+                <div class="case-study-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Students</span>
+                        <span class="meta-value">8,000+</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Duration</span>
+                        <span class="meta-value">12 Weeks</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Certifications</span>
+                        <span class="meta-value">7,200</span>
+                    </div>
+                </div>
+                <p class="case-study-description">Large-scale certification program with live instructors, recorded sessions, interactive labs, and comprehensive assessment tracking.</p>
+                <ul class="results-list">
+                    <li>90% certification pass rate</li>
+                    <li>98% student satisfaction</li>
+                    <li>Average course completion 94%</li>
+                    <li>Career advancement for 75% of graduates</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="case-study">
+            <div class="case-study-image">🚀</div>
+            <div class="case-study-content">
+                <h3>Product Launch Event</h3>
+                <div class="case-study-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Live Viewers</span>
+                        <span class="meta-value">50,000+</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Peak Concurrent</span>
+                        <span class="meta-value">15,000</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Engagement</span>
+                        <span class="meta-value">92%</span>
+                    </div>
+                </div>
+                <p class="case-study-description">High-stakes product launch with live demos, interactive Q&A, exclusive previews, and real-time chat engagement with executives.</p>
+                <ul class="results-list">
+                    <li>50K+ registrations in first week</li>
+                    <li>92% live attendance rate</li>
+                    <li>10K+ social media mentions</li>
+                    <li>30% immediate sales conversion</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 EventFlow. All rights reserved. | Privacy Policy | Terms of Service</p>
+    </footer>
+</body>
+</html>
